@@ -40,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- Case Name Field -->
                 <EditText
                     android:id="@+id/caseName"
                     android:layout_width="match_parent"
@@ -52,6 +53,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
+                <!-- Case Details Field -->
                 <EditText
                     android:id="@+id/caseDetails"
                     android:layout_width="match_parent"
@@ -62,6 +64,27 @@
                     android:padding="8dp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
+
+                <!-- NEW: Choose Image Button -->
+                <Button
+                    android:id="@+id/chooseImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:backgroundTint="@color/teal_200"
+                    android:text="@string/button_add_image"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+
+                <ImageView
+                    android:id="@+id/caseImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="16dp"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="@string/case_image_desc"
+                    android:src="@mipmap/ic_launcher" />
 
                 <Button
                     android:id="@+id/btnAdd"
