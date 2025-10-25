@@ -1,9 +1,22 @@
 <resources>
-    <string name="app_name">CaseManagementApp</string>
-    <string name="hint_case_name">Case Name</string>
-    <string name="hint_case_details">Case Details</string>
-    <string name="button_add_case">Add Case</string>
-    <string name="menu_cancel_case">Cancel</string>
+
+    <string name="app_name">Case Management App</string>
+
+    <string name="hint_case_name">Enter case name</string>
+    <string name="hint_case_details">Enter case details</string>
     <string name="enter_case_name">Please enter a case name</string>
-    <string name="case_added">Case Added</string>
+    <string name="case_added">Case added successfully</string>
+    <string name="save_case">Save Case</string>
+
+    <string name="menu_cancel_case">Cancel</string>
+    <string name="menu_delete_case">Delete</string>
+    <string name="menu_add_case">Add Case</string>
+
+
+    <string name="button_add_image">Add Image</string>
+    <string name="case_image_desc">Case Image</string>
+    <string name="select_case_image">Select case image</string>
+
+    <string name="button_add_case">Add Case</string>
+    <string name="add_case">Add new case</string>
 </resources>

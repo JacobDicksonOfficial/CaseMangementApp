@@ -2,11 +2,10 @@ package com.tac.casemanagementapp.helpers
 
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
-import com.tac.casemanagementapp.R
+import android.provider.MediaStore
 
+// Helper function to open the image picker
 fun showImagePicker(intentLauncher: ActivityResultLauncher<Intent>) {
-    var chooseFile = Intent(Intent.ACTION_OPEN_DOCUMENT)
-    chooseFile.type = "image/*"
-    chooseFile = Intent.createChooser(chooseFile, "Select Case Image")
-    intentLauncher.launch(chooseFile)
+    val pickIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+    intentLauncher.launch(pickIntent)
 }

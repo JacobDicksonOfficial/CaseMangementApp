@@ -38,11 +38,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="8dp">
 
-                <!-- Case Name Field -->
+
                 <EditText
-                    android:id="@+id/caseName"
+                    android:id="@+id/caseTitle"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_margin="8dp"
@@ -53,9 +54,9 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
-                <!-- Case Details Field -->
+                <!-- Case Description Field -->
                 <EditText
-                    android:id="@+id/caseDetails"
+                    android:id="@+id/caseDescription"
                     android:layout_width="match_parent"
                     android:layout_height="96dp"
                     android:layout_margin="8dp"
@@ -65,18 +66,19 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
-                <!-- NEW: Choose Image Button -->
+
                 <Button
-                    android:id="@+id/chooseImage"
+                    android:id="@+id/btnAddImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:backgroundTint="@color/teal_200"
                     android:text="@string/button_add_image"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:contentDescription="@string/case_image_desc" />
 
-
+                <!-- Image Preview -->
                 <ImageView
                     android:id="@+id/caseImage"
                     android:layout_width="match_parent"
@@ -86,8 +88,9 @@
                     android:contentDescription="@string/case_image_desc"
                     android:src="@mipmap/ic_launcher" />
 
+                <!-- Save Button -->
                 <Button
-                    android:id="@+id/btnAdd"
+                    android:id="@+id/btnSave"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -95,6 +98,17 @@
                     android:padding="8dp"
                     android:text="@string/button_add_case"
                     android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+
+                <!-- Cancel Button -->
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:backgroundTint="@android:color/darker_gray"
+                    android:text="Cancel"
+                    android:textColor="@android:color/white"
                     android:textSize="16sp" />
             </LinearLayout>
         </ScrollView>

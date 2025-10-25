@@ -4,10 +4,12 @@ import android.net.Uri
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
+// A data class representing one case in the app
+// Using @Parcelize allows the object to be sent between Activities
 @Parcelize
 data class CaseModel(
-    var id: Long = 0,
-    var name: String = "",
-    var details: String = "",
-    var image: Uri = Uri.EMPTY
+    var id: Long = 0,                      // unique identifier
+    var title: String = "",                // title of the case
+    var description: String = "",          // description or notes
+    var image: Uri = Uri.EMPTY             // optional image URI
 ) : Parcelable
