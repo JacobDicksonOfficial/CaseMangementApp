@@ -66,6 +66,26 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
+                <!-- Gender Label -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gender"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark" />
+
+                <!-- Gender Dropdown (Spinner) -->
+                <Spinner
+                    android:id="@+id/genderSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:entries="@array/gender_options"
+                    android:spinnerMode="dropdown" />
+
+
 
                 <Button
                     android:id="@+id/btnAddImage"

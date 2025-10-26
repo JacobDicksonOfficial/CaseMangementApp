@@ -19,4 +19,10 @@
 
     <string name="button_add_case">Add Case</string>
     <string name="add_case">Add new case</string>
+
+    <string-array name="gender_options">
+        <item>Male</item>
+        <item>Female</item>
+        <item>N/A</item>
+    </string-array>
 </resources>

@@ -47,6 +47,7 @@ class CaseAdapter(
             // Set case name and details
             binding.caseName.text = case.title
             binding.caseDetails.text = case.description
+            binding.caseGender.text = "Gender: ${case.gender}"
 
             // Load image if available
             if (case.image.isNotEmpty()) {
