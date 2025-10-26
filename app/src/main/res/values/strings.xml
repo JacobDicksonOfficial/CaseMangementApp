@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Case Management App</string>
+    <string name="app_name">TAC Sentinel: CMS </string>
 
     <string name="hint_case_name">Enter case name</string>
     <string name="hint_case_details">Enter case details</string>

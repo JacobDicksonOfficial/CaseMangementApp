@@ -44,7 +44,7 @@
         app:layout_anchorGravity="bottom|end"
         android:layout_gravity="bottom|end"
         app:tint="@android:color/white"
-        app:backgroundTint="@color/teal_200"
+        app:backgroundTint="@color/blue"
         app:elevation="6dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

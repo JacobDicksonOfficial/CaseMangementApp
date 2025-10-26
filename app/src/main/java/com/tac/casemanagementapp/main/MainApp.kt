@@ -15,6 +15,6 @@ class MainApp : Application() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())  // one global Timber setup
         cases = CaseMemStore()            // initialize in-memory data store
-        Timber.i("Case Management App Started ✅")
+        Timber.i("Case Management: TAC - Initiated")
     }
 }
