@@ -11,5 +11,5 @@ data class CaseModel(
     var id: Long = 0,                      // unique identifier
     var title: String = "",                // title of the case
     var description: String = "",          // description or notes
-    var image: Uri = Uri.EMPTY             // optional image URI
+    var image: String = ""            // Store image URI as string for persistence
 ) : Parcelable

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.CaseListActivity">
 
-    <!-- 🟢 App bar (toolbar) -->
+    <!-- App bar (toolbar) -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,14 +17,15 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <androidx.appcompat.widget.Toolbar
+            app:title="@string/app_name"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/app_name"
+            android:background="@color/colorAccent"
             app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- 🟢 RecyclerView for all cases -->
+    <!-- RecyclerView for all cases -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
@@ -33,7 +34,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/card_case" />
 
-    <!-- 🟢 Floating Action Button to add new case -->
+    <!-- Floating Action Button to add new case -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

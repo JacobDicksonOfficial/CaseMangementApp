@@ -25,8 +25,9 @@ class CaseActivity : AppCompatActivity() {
     private val imageIntentLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && result.data != null) {
-                case.image = result.data!!.data!!
-                Picasso.get().load(case.image).into(binding.caseImage)
+                val imageUri = result.data!!.data!!
+                case.image = imageUri.toString() // save as image as string
+                Picasso.get().load(imageUri).into(binding.caseImage)
                 Timber.i("Image selected: ${case.image}")
             }
         }
@@ -45,8 +46,8 @@ class CaseActivity : AppCompatActivity() {
             case = intent.extras?.getParcelable("case_edit")!!
             binding.caseTitle.setText(case.title)
             binding.caseDescription.setText(case.description)
-            if (case.image != Uri.EMPTY) {
-                Picasso.get().load(case.image).into(binding.caseImage)
+            if (case.image.isNotEmpty()) {
+                Picasso.get().load(Uri.parse(case.image)).into(binding.caseImage)
             }
             binding.btnSave.setText("Save Case")
         }

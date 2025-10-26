@@ -49,7 +49,7 @@ class CaseAdapter(
             binding.caseDetails.text = case.description
 
             // Load image if available
-            if (case.image != android.net.Uri.EMPTY) {
+            if (case.image.isNotEmpty()) {
                 Picasso.get().load(case.image).into(binding.caseImage)
             }
 
