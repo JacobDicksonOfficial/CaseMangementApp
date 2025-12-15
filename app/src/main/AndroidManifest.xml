@@ -14,19 +14,27 @@
         android:theme="@style/Theme.CaseManagementApp"
         tools:targetApi="34">
 
-        <!-- MVP: CaseListView is now the launcher (main) screen -->
+        <!-- Splash Screen (Launcher) -->
         <activity
-            android:name=".views.caseslist.CaseListView"
-            android:exported="true">
+            android:name=".main.SplashActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.CaseManagementApp.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- MVP: CaseView for creating/editing a case -->
+        <!-- MVP: Case List (Main App Screen) -->
         <activity
-            android:name=".views.case.CaseView" />
+            android:name=".views.caseslist.CaseListView"
+            android:exported="false" />
+
+        <!-- MVP: Case Add/Edit Screen -->
+        <activity
+            android:name=".views.case.CaseView"
+            android:exported="false" />
 
     </application>
 
