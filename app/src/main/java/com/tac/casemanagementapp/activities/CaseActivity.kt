@@ -28,12 +28,13 @@ class CaseActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && result.data != null) {
                 val imageUri = result.data!!.data!!
-                case.image = imageUri.toString() // ✅ Save image as string
+                case.image = imageUri.toString() // Save image as string
                 Picasso.get().load(imageUri).into(binding.caseImage)
                 Timber.i("Image selected: ${case.image}")
             }
         }
 
+    // Called when an activity is being created
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCaseBinding.inflate(layoutInflater)
@@ -42,7 +43,7 @@ class CaseActivity : AppCompatActivity() {
         app = application as MainApp
         Timber.i("CaseActivity started")
 
-        // 🔹 Setup Spinner for Gender Selection
+        // Setup Spinner for Gender Selection - Advanced Feature
         val genderOptions = resources.getStringArray(R.array.gender_options)
         val spinnerAdapter = ArrayAdapter(
             this,
@@ -51,7 +52,7 @@ class CaseActivity : AppCompatActivity() {
         )
         binding.genderSpinner.adapter = spinnerAdapter
 
-        // 🔹 Check if Editing an Existing Case
+        // Check if Editing an Existing Case
         if (intent.hasExtra("case_edit")) {
             edit = true
             case = intent.extras?.getParcelable("case_edit")!!
@@ -70,11 +71,11 @@ class CaseActivity : AppCompatActivity() {
             binding.btnSave.setText("Save Case")
         }
 
-        // 🔹 Save Button
+        // Save Button
         binding.btnSave.setOnClickListener {
             case.title = binding.caseTitle.text.toString()
             case.description = binding.caseDescription.text.toString()
-            case.gender = binding.genderSpinner.selectedItem.toString() // ✅ Save selected gender
+            case.gender = binding.genderSpinner.selectedItem.toString() // Save selected gender
 
             if (edit) {
                 app.cases.update(case)
@@ -86,12 +87,12 @@ class CaseActivity : AppCompatActivity() {
             finish()
         }
 
-        // 🔹 Add Image Button
+        // Add Image Button
         binding.btnAddImage.setOnClickListener {
             showImagePicker(imageIntentLauncher)
         }
 
-        // 🔹 Cancel Button
+        // Cancel Button
         binding.btnCancel.setOnClickListener {
             setResult(RESULT_CANCELED)
             finish()
