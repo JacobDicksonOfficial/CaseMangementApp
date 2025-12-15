@@ -1,9 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.CaseManagementApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+    <!-- =====================================================
+         Base App Theme (Material3, shared by all screens)
+         ===================================================== -->
+    <style name="Base.Theme.CaseManagementApp"
+        parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- You can customise colours later if needed -->
+        <!-- <item name="colorPrimary">@color/...</item> -->
     </style>
 
-    <style name="Theme.CaseManagementApp" parent="Base.Theme.CaseManagementApp"/>
+    <!-- =====================================================
+         Main Application Theme
+         Used by all normal app screens
+         ===================================================== -->
+    <style name="Theme.CaseManagementApp"
+        parent="Base.Theme.CaseManagementApp" />
+
+    <!-- =====================================================
+         Splash Theme
+         Prevents grey launcher icon preview
+         ===================================================== -->
+    <style name="Theme.CaseManagementApp.Splash"
+        parent="Theme.CaseManagementApp">
+
+        <!-- This is CRITICAL: replaces the grey preview window -->
+        <item name="android:windowBackground">
+            @drawable/splash_window_background
+        </item>
+
+        <!-- Prevents system from showing launcher icon preview -->
+        <item name="android:windowDisablePreview">true</item>
+
+        <!-- Optional polish -->
+        <item name="android:statusBarColor">#0a1929</item>
+    </style>
+
 </resources>
