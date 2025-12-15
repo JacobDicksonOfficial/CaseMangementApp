@@ -14,9 +14,9 @@
         android:theme="@style/Theme.CaseManagementApp"
         tools:targetApi="34">
 
-        <!-- Case List is now the main launcher screen -->
+        <!-- MVP: CaseListView is now the launcher (main) screen -->
         <activity
-            android:name=".activities.CaseListActivity"
+            android:name=".views.caseslist.CaseListView"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,8 +24,10 @@
             </intent-filter>
         </activity>
 
-        <!-- Secondary screen -->
-        <activity android:name=".activities.CaseActivity" />
+        <!-- MVP: CaseView for creating/editing a case -->
+        <activity
+            android:name=".views.case.CaseView" />
+
     </application>
 
 </manifest>

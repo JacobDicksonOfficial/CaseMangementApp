@@ -10,38 +10,49 @@ import com.tac.casemanagementapp.views.case.CaseView
 import com.tac.casemanagementapp.views.caseslist.CaseListView
 
 /**
- * Presenter for the list screen.
- * This is for navigation to (add/edit) and tells the View when to refresh/remove.
+ * Presenter for CaseListView.
+ * Owns navigation to CaseView and store operations (delete).
  */
 class CaseListPresenter(private val view: CaseListView) {
 
     private val app: MainApp = view.application as MainApp
+
     private lateinit var refreshLauncher: ActivityResultLauncher<Intent>
-    private var position: Int = 0
 
     init {
         registerRefreshCallback()
     }
 
-    fun getCases() = app.cases.findAll()
+    fun getCases(): List<CaseModel> = app.cases.findAll()
+
+    fun getFilteredCases(query: String?): List<CaseModel> {
+        val all = app.cases.findAll()
+        if (query.isNullOrBlank()) return all
+        return all.filter { it.description.contains(query, ignoreCase = true) }
+    }
 
     fun doAddCase() {
         val intent = Intent(view, CaseView::class.java)
         refreshLauncher.launch(intent)
     }
 
-    fun doEditCase(case: CaseModel, pos: Int) {
-        position = pos
+    fun doEditCase(case: CaseModel) {
         val intent = Intent(view, CaseView::class.java)
         intent.putExtra("case_edit", case)
         refreshLauncher.launch(intent)
     }
 
+    fun doDeleteCase(case: CaseModel) {
+        app.cases.delete(case)
+        view.onRefresh()
+    }
+
     private fun registerRefreshCallback() {
         refreshLauncher =
             view.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == Activity.RESULT_OK) view.onRefresh()
-                else if (it.resultCode == 99) view.onDelete(position)
+                if (it.resultCode == Activity.RESULT_OK) {
+                    view.onRefresh()
+                }
             }
     }
 }
