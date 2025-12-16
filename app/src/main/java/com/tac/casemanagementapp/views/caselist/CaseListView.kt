@@ -1,15 +1,19 @@
 package com.tac.casemanagementapp.views.caseslist
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.FirebaseAuth
 import com.tac.casemanagementapp.R
 import com.tac.casemanagementapp.adapters.CaseAdapter
 import com.tac.casemanagementapp.adapters.CaseListener
 import com.tac.casemanagementapp.databinding.ActivityCaseListBinding
+import com.tac.casemanagementapp.main.LoginActivity
 import com.tac.casemanagementapp.models.CaseModel
 import com.tac.casemanagementapp.presenters.CaseListPresenter
 import timber.log.Timber
@@ -18,6 +22,7 @@ import timber.log.Timber
  * View (UI layer) for showing and searching Cases.
  * - Owns RecyclerView, Adapter, SearchView, and confirmation dialogs.
  * - Delegates store actions and navigation to the Presenter.
+ * - Provides logout (profile icon) via FirebaseAuth signOut.
  */
 class CaseListView : AppCompatActivity(), CaseListener {
 
@@ -48,6 +53,7 @@ class CaseListView : AppCompatActivity(), CaseListener {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
+
         val searchItem = menu?.findItem(R.id.action_search)
         val searchView = searchItem?.actionView as? SearchView
 
@@ -62,6 +68,24 @@ class CaseListView : AppCompatActivity(), CaseListener {
         })
 
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_logout -> {
+                // Logout the current Firebase user
+                FirebaseAuth.getInstance().signOut()
+
+                // Go back to Login screen and prevent back navigation into the app
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun filterCases(query: String?) {
@@ -86,7 +110,7 @@ class CaseListView : AppCompatActivity(), CaseListener {
     }
 
     /**
-     * Presenter calls this after add/edit.
+     * Presenter calls this after add/edit/delete.
      */
     fun onRefresh() {
         Timber.i("Refreshing Case List")

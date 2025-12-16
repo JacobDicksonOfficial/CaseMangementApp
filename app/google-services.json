@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1079900520474",
+    "project_id": "casemanagementapp-v2",
+    "storage_bucket": "casemanagementapp-v2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079900520474:android:7c9dfc23a35401d42511a3",
+        "android_client_info": {
+          "package_name": "com.tac.casemanagementapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1079900520474-ulj635ncdn4qd879j25745dstjkic0v2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5iutWNgFtNUrPSIXXRlkVWMHHr70hHnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1079900520474-ulj635ncdn4qd879j25745dstjkic0v2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

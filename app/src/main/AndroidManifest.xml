@@ -26,6 +26,13 @@
             </intent-filter>
         </activity>
 
+        <!-- Login Screen -->
+        <activity
+            android:name=".main.LoginActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.CaseManagementApp.Login" />
+
         <!-- MVP: Case List (Main App Screen) -->
         <activity
             android:name=".views.caseslist.CaseListView"
