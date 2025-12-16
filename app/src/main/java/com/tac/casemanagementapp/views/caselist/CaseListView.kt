@@ -1,10 +1,12 @@
 package com.tac.casemanagementapp.views.caseslist
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -18,12 +20,6 @@ import com.tac.casemanagementapp.models.CaseModel
 import com.tac.casemanagementapp.presenters.CaseListPresenter
 import timber.log.Timber
 
-/**
- * View (UI layer) for showing and searching Cases.
- * - Owns RecyclerView, Adapter, SearchView, and confirmation dialogs.
- * - Delegates store actions and navigation to the Presenter.
- * - Provides logout (profile icon) via FirebaseAuth signOut.
- */
 class CaseListView : AppCompatActivity(), CaseListener {
 
     private lateinit var binding: ActivityCaseListBinding
@@ -32,6 +28,7 @@ class CaseListView : AppCompatActivity(), CaseListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityCaseListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -45,10 +42,17 @@ class CaseListView : AppCompatActivity(), CaseListener {
         adapter = CaseAdapter(presenter.getCases(), this)
         binding.recyclerView.adapter = adapter
 
-        // Add new case
+        // Add new case FAB
         binding.fab.setOnClickListener {
             presenter.doAddCase()
         }
+
+        // Theme toggle FAB (NEW)
+        binding.themeFab.setOnClickListener {
+            toggleTheme()
+        }
+
+        updateThemeFabIcon()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -73,12 +77,11 @@ class CaseListView : AppCompatActivity(), CaseListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_logout -> {
-                // Logout the current Firebase user
                 FirebaseAuth.getInstance().signOut()
 
-                // Go back to Login screen and prevent back navigation into the app
                 val intent = Intent(this, LoginActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                intent.flags =
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
                 finish()
                 true
@@ -109,12 +112,40 @@ class CaseListView : AppCompatActivity(), CaseListener {
             .show()
     }
 
-    /**
-     * Presenter calls this after add/edit/delete.
-     */
     fun onRefresh() {
         Timber.i("Refreshing Case List")
         adapter = CaseAdapter(presenter.getCases(), this)
         binding.recyclerView.adapter = adapter
+    }
+
+    // =====================================================
+    // Theme toggle logic
+    // =====================================================
+
+    private fun toggleTheme() {
+        val prefs = getSharedPreferences("tac_prefs", Context.MODE_PRIVATE)
+        val isDark = prefs.getBoolean("dark_mode", true)
+
+        val newIsDark = !isDark
+        prefs.edit().putBoolean("dark_mode", newIsDark).apply()
+
+        AppCompatDelegate.setDefaultNightMode(
+            if (newIsDark)
+                AppCompatDelegate.MODE_NIGHT_YES
+            else
+                AppCompatDelegate.MODE_NIGHT_NO
+        )
+
+        updateThemeFabIcon()
+    }
+
+    private fun updateThemeFabIcon() {
+        val prefs = getSharedPreferences("tac_prefs", Context.MODE_PRIVATE)
+        val isDark = prefs.getBoolean("dark_mode", true)
+
+        binding.themeFab.setImageResource(
+            if (isDark) R.drawable.ic_light_mode_24
+            else R.drawable.ic_dark_mode_24
+        )
     }
 }

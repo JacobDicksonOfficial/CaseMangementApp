@@ -11,21 +11,21 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@color/tac_navy"
         android:fitsSystemWindows="true"
         app:elevation="4dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <androidx.appcompat.widget.Toolbar
-            app:title="@string/app_name"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorAccent"
+            app:title="@string/app_name"
             app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- RecyclerView for all cases -->
+    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/card_case" />
 
-    <!-- Floating Action Button to add new case -->
+    <!-- Add Case FAB -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -42,8 +42,23 @@
         android:layout_margin="16dp"
         android:contentDescription="@string/add_case"
         android:src="@android:drawable/ic_input_add"
-        app:layout_anchorGravity="bottom|end"
         android:layout_gravity="bottom|end"
+        app:tint="@android:color/white"
+        app:backgroundTint="@color/blue"
+        app:elevation="6dp" />
+
+    <!-- Theme Toggle FAB (same colour, sits above Add FAB) -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/themeFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="90dp"
+        android:contentDescription="@string/toggle_theme"
+        android:src="@drawable/ic_dark_mode_24"
+        android:layout_gravity="bottom|end"
+        app:layout_anchor="@id/fab"
+        app:layout_anchorGravity="top|end"
         app:tint="@android:color/white"
         app:backgroundTint="@color/blue"
         app:elevation="6dp" />

@@ -21,6 +21,9 @@
     <string name="button_add_case">Add Case</string>
     <string name="add_case">Add new case</string>
 
+    <string name="toggle_theme">Toggle theme</string>
+
+
     <string-array name="gender_options">
         <item>Male</item>
         <item>Female</item>
