@@ -14,15 +14,18 @@ import com.tac.casemanagementapp.helpers.showImagePicker
 import com.tac.casemanagementapp.models.CaseModel
 import com.tac.casemanagementapp.presenters.CasePresenter
 import com.tac.casemanagementapp.views.map.MapViewActivity
-
 import timber.log.Timber
 
+/**
+ * Screen for creating or editing a case.
+ * UI logic only – business logic is in CasePresenter.
+ */
 class CaseView : AppCompatActivity() {
 
     private lateinit var binding: ActivityCaseBinding
     lateinit var presenter: CasePresenter
 
-    /* ---------- IMAGE PICKER ---------- */
+    // IMAGE PICKER
     private val imageIntentLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && result.data != null) {
@@ -32,7 +35,7 @@ class CaseView : AppCompatActivity() {
             }
         }
 
-    /* ---------- MAP PICKER ---------- */
+    // MAP PICKER
     private val mapIntentLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && result.data != null) {
@@ -57,6 +60,7 @@ class CaseView : AppCompatActivity() {
 
         setupGenderSpinner()
 
+        // Save button
         binding.btnSave.setOnClickListener {
             presenter.doSave(
                 binding.caseTitle.text.toString(),
@@ -65,15 +69,18 @@ class CaseView : AppCompatActivity() {
             )
         }
 
+        // Cancel button
         binding.btnCancel.setOnClickListener {
             presenter.doCancel()
         }
 
+        // Add image button
         binding.btnAddImage.setOnClickListener {
             cacheForm()
             showImagePicker(imageIntentLauncher)
         }
 
+        // Pick location button
         binding.btnPickLocation.setOnClickListener {
             cacheForm()
             mapIntentLauncher.launch(
@@ -82,6 +89,7 @@ class CaseView : AppCompatActivity() {
         }
     }
 
+    // Setup gender dropdown spinner
     private fun setupGenderSpinner() {
         val adapter = ArrayAdapter(
             this,
@@ -91,6 +99,7 @@ class CaseView : AppCompatActivity() {
         binding.genderSpinner.adapter = adapter
     }
 
+    // Save current form values before navigating away
     private fun cacheForm() {
         presenter.cacheCase(
             binding.caseTitle.text.toString(),
@@ -99,6 +108,7 @@ class CaseView : AppCompatActivity() {
         )
     }
 
+    // Display case data when editing
     fun showCase(case: CaseModel) {
         binding.caseTitle.setText(case.title)
         binding.caseDescription.setText(case.description)
@@ -115,6 +125,7 @@ class CaseView : AppCompatActivity() {
         binding.btnSave.text = getString(R.string.save_case)
     }
 
+    // Update image preview after selecting image
     fun updateImage(image: String) {
         if (image.isNotEmpty()) {
             Picasso.get().load(Uri.parse(image)).into(binding.caseImage)

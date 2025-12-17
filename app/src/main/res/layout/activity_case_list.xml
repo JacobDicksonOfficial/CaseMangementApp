@@ -47,7 +47,8 @@
         app:backgroundTint="@color/blue"
         app:elevation="6dp" />
 
-    <!-- Theme Toggle FAB (same colour, sits above Add FAB) -->
+    <!-- Floating button for toggling dark/light theme -->
+    <!-- Placed above the add FAB -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/themeFab"
         android:layout_width="wrap_content"

@@ -13,6 +13,9 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.tac.casemanagementapp.R
 import java.util.Locale
 
+/**
+ * Simple map screen used to select a location.
+ */
 class MapView : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
@@ -51,6 +54,7 @@ class MapView : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    // Converts coordinates into a readable address
     private fun getAddress(latLng: LatLng): String {
         return try {
             val geocoder = Geocoder(this, Locale.getDefault())

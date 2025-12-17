@@ -20,6 +20,9 @@ import com.tac.casemanagementapp.models.CaseModel
 import com.tac.casemanagementapp.presenters.CaseListPresenter
 import timber.log.Timber
 
+/**
+ * Main screen showing a list of cases.
+ */
 class CaseListView : AppCompatActivity(), CaseListener {
 
     private lateinit var binding: ActivityCaseListBinding
@@ -42,12 +45,12 @@ class CaseListView : AppCompatActivity(), CaseListener {
         adapter = CaseAdapter(presenter.getCases(), this)
         binding.recyclerView.adapter = adapter
 
-        // Add new case FAB
+        // Add new case
         binding.fab.setOnClickListener {
             presenter.doAddCase()
         }
 
-        // Theme toggle FAB (NEW)
+        // Toggle light/dark theme
         binding.themeFab.setOnClickListener {
             toggleTheme()
         }
@@ -91,16 +94,19 @@ class CaseListView : AppCompatActivity(), CaseListener {
         }
     }
 
+    // Filter list based on search query
     private fun filterCases(query: String?) {
         val filteredList = presenter.getFilteredCases(query)
         adapter = CaseAdapter(filteredList, this)
         binding.recyclerView.adapter = adapter
     }
 
+    // User clicks a case card
     override fun onCaseClick(case: CaseModel) {
         presenter.doEditCase(case)
     }
 
+    // User clicks delete button
     override fun onCaseDelete(case: CaseModel) {
         MaterialAlertDialogBuilder(this)
             .setTitle("Delete Case")
@@ -112,15 +118,14 @@ class CaseListView : AppCompatActivity(), CaseListener {
             .show()
     }
 
+    // Refresh list after add/edit/delete
     fun onRefresh() {
         Timber.i("Refreshing Case List")
         adapter = CaseAdapter(presenter.getCases(), this)
         binding.recyclerView.adapter = adapter
     }
 
-    // =====================================================
-    // Theme toggle logic
-    // =====================================================
+    // Theme LOGIC for Dark/Light Mode Toggle
 
     private fun toggleTheme() {
         val prefs = getSharedPreferences("tac_prefs", Context.MODE_PRIVATE)

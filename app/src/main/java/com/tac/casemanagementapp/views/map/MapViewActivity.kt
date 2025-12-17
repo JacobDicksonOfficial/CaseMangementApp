@@ -16,6 +16,9 @@ import com.tac.casemanagementapp.R
 import timber.log.Timber
 import java.util.Locale
 
+/**
+ * Map screen where user selects and confirms a location.
+ */
 class MapViewActivity : AppCompatActivity(),
     OnMapReadyCallback,
     GoogleMap.OnMapClickListener,
@@ -41,14 +44,12 @@ class MapViewActivity : AppCompatActivity(),
         map.setOnMapClickListener(this)
         map.setOnMarkerClickListener(this)
 
-        // Default camera position (Dublin – safe neutral start)
+        // Default camera position (Dublin)
         val startLocation = LatLng(53.3498, -6.2603)
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 12f))
     }
 
-    /**
-     * User taps on map → drop marker
-     */
+    // User taps the map and places a marker
     override fun onMapClick(latLng: LatLng) {
         currentMarker?.remove()
 
@@ -62,9 +63,7 @@ class MapViewActivity : AppCompatActivity(),
         map.animateCamera(CameraUpdateFactory.newLatLng(latLng))
     }
 
-    /**
-     * User taps marker → confirm location & return to CaseView
-     */
+    // User taps marker and confirms the location
     override fun onMarkerClick(marker: Marker): Boolean {
         val latLng = marker.position
         val address = getAddress(latLng)
@@ -83,9 +82,7 @@ class MapViewActivity : AppCompatActivity(),
         return true
     }
 
-    /**
-     * Reverse geocode coordinates → address string
-     */
+    // Converts coordinates to readable address
     private fun getAddress(latLng: LatLng): String {
         return try {
             val geocoder = Geocoder(this, Locale.getDefault())
