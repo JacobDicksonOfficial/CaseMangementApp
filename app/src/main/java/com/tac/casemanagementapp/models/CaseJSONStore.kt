@@ -13,30 +13,15 @@ import java.util.Random
 
 private const val JSON_FILE = "cases.json"
 
-/**
- * Gson instance for converting between and  List<CaseModel>  and the  JSON String
- */
 private val gsonBuilder: Gson = GsonBuilder()
     .setPrettyPrinting()
     .create()
 
-/**
- * Indicating to Gson that it needs to know "this JSON is a List<CaseModel>"
- */
-private val listType: Type = object : TypeToken<ArrayList<CaseModel>>() {}.type
+private val listType: Type =
+    object : TypeToken<ArrayList<CaseModel>>() {}.type
 
-/**
- * Generates an id when creating new cases (Same approach as the labs: random long id)
- */
 private fun generateRandomId(): Long = Random().nextLong()
 
-/**
- * JSON-backed implementation of CaseStore.
- *
- * - Keeps data in memory as `cases`
- * - After every create/update/delete, it serializes to cases.json
- * - On startup, it deserializes from cases.json if it exists
- */
 class CaseJSONStore(private val context: Context) : CaseStore {
 
     private var cases = mutableListOf<CaseModel>()
@@ -65,6 +50,12 @@ class CaseJSONStore(private val context: Context) : CaseStore {
             foundCase.description = case.description
             foundCase.image = case.image
             foundCase.gender = case.gender
+
+            // 📍 location persistence
+            foundCase.latitude = case.latitude
+            foundCase.longitude = case.longitude
+            foundCase.address = case.address
+
             serialize()
         }
     }
@@ -74,24 +65,16 @@ class CaseJSONStore(private val context: Context) : CaseStore {
         serialize()
     }
 
-    /** Converts the current in-memory list to the JSON string which writes to a file.
-     */
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(cases, listType)
         write(context, JSON_FILE, jsonString)
     }
 
-    /**
-     * Reads JSON string from file and converts to list,  then it stores it in memory.
-     */
     private fun deserialize() {
         val jsonString = read(context, JSON_FILE)
         cases = gsonBuilder.fromJson(jsonString, listType)
     }
 
-    /**
-     * Logging helper (helps you prove it’s loading/saving correctly).
-     */
     private fun logAll() {
         Timber.i("---- CaseJSONStore: listing cases ----")
         cases.forEach { Timber.i("Case: $it") }

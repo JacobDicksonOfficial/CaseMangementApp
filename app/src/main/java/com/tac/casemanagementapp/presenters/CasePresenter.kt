@@ -5,10 +5,6 @@ import com.tac.casemanagementapp.main.MainApp
 import com.tac.casemanagementapp.models.CaseModel
 import com.tac.casemanagementapp.views.case.CaseView
 
-/**
- * Presenter for CaseView.
- * Owns the Case model state and talks to the Store.
- */
 class CasePresenter(private val view: CaseView) {
 
     private val app: MainApp = view.application as MainApp
@@ -28,19 +24,17 @@ class CasePresenter(private val view: CaseView) {
         case.description = description
         case.gender = gender
 
-        if (edit) app.cases.update(case) else app.cases.create(case)
+        if (edit) {
+            app.cases.update(case)
+        } else {
+            app.cases.create(case)
+        }
 
         view.setResult(RESULT_OK)
         view.finish()
     }
 
     fun doCancel() {
-        view.finish()
-    }
-
-    fun doDelete() {
-        view.setResult(99)
-        app.cases.delete(case)
         view.finish()
     }
 
@@ -53,5 +47,16 @@ class CasePresenter(private val view: CaseView) {
     fun setImage(image: String) {
         case.image = image
         view.updateImage(image)
+    }
+
+    // 📍 Called by MapViewActivity
+    fun setLocation(
+        latitude: Double,
+        longitude: Double,
+        address: String
+    ) {
+        case.latitude = latitude
+        case.longitude = longitude
+        case.address = address
     }
 }

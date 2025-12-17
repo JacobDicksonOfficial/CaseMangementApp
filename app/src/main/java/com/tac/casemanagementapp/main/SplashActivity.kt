@@ -12,65 +12,65 @@ import com.tac.casemanagementapp.views.caseslist.CaseListView
 
 /**
  * Splash screen shown at app launch.
- * - Displays logo + loading bar briefly
- * - Then routes based on Firebase authentication state:
- *   - Logged in  -> CaseListView
- *   - Not logged -> LoginActivity
+ * - Shows logo + animated loading bar
+ * - Bar always completes to 100%
+ * - Routes based on Firebase auth state
  */
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var progressBar: ProgressBar
     private val handler = Handler(Looper.getMainLooper())
-    private var progressStatus = 0
+
+    private val splashDurationMs = 2500L
+    private val tickMs = 25L
+    private val maxProgress = 100
+
+    private var progress = 0
+
+    private val progressRunnable = object : Runnable {
+        override fun run() {
+            if (progress < maxProgress) {
+                progress++
+                progressBar.progress = progress
+                handler.postDelayed(this, tickMs)
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Fullscreen splash (no action bar)
         supportActionBar?.hide()
 
         setContentView(R.layout.activity_splash)
         progressBar = findViewById(R.id.progressBar)
 
-        startLoadingProgress()
-    }
+        progressBar.max = maxProgress
+        progressBar.progress = 0
 
-    private fun startLoadingProgress() {
-        Thread {
-            while (progressStatus < 100) {
-                progressStatus += 1
+        // Start smooth progress animation
+        handler.post(progressRunnable)
 
-                handler.post {
-                    progressBar.progress = progressStatus
-                }
-
-                try {
-                    Thread.sleep(35) // adjust if you want longer/shorter splash
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                }
-            }
-
-            handler.post {
-                navigateNext()
-            }
-        }.start()
+        // Finish splash AFTER progress visually completes
+        handler.postDelayed({
+            forceCompleteAndNavigate()
+        }, splashDurationMs)
     }
 
     /**
-     * Decides where to go after splash:
-     * - If a Firebase user exists -> go straight to the app list screen
-     * - Otherwise -> require login
+     * Ensures progress bar finishes before navigation
      */
+    private fun forceCompleteAndNavigate() {
+        progressBar.progress = maxProgress
+        navigateNext()
+    }
+
     private fun navigateNext() {
         val auth = FirebaseAuth.getInstance()
-
         val intent = if (auth.currentUser != null) {
             Intent(this, CaseListView::class.java)
         } else {
             Intent(this, LoginActivity::class.java)
         }
-
         startActivity(intent)
         finish()
     }

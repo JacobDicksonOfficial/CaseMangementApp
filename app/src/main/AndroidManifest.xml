@@ -5,43 +5,39 @@
     <application
         android:name=".main.MainApp"
         android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
         android:theme="@style/Theme.CaseManagementApp"
         tools:targetApi="34">
 
-        <!-- Splash Screen (Launcher) -->
+        <!-- 🔑 Google Maps API Key -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBkfcAJz0ELEAcND5jstBDT2duDPlvmkFk"/>
+
         <activity
             android:name=".main.SplashActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.CaseManagementApp.Splash">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <!-- Login Screen -->
-        <activity
-            android:name=".main.LoginActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.CaseManagementApp.Login" />
+        <activity android:name=".main.LoginActivity" />
+        <activity android:name=".views.caseslist.CaseListView" />
+        <activity android:name=".views.case.CaseView" />
 
-        <!-- MVP: Case List (Main App Screen) -->
+        <!-- Map screen -->
         <activity
-            android:name=".views.caseslist.CaseListView"
+            android:name=".views.map.MapView"
             android:exported="false" />
 
-        <!-- MVP: Case Add/Edit Screen -->
         <activity
-            android:name=".views.case.CaseView"
+            android:name=".views.map.MapViewActivity"
             android:exported="false" />
+
 
     </application>
 

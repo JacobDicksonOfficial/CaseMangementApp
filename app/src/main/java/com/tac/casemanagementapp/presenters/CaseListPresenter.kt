@@ -25,10 +25,23 @@ class CaseListPresenter(private val view: CaseListView) {
 
     fun getCases(): List<CaseModel> = app.cases.findAll()
 
+    /**
+     * Enhanced search:
+     * - Description
+     * - Title
+     * - Location address
+     */
     fun getFilteredCases(query: String?): List<CaseModel> {
         val all = app.cases.findAll()
         if (query.isNullOrBlank()) return all
-        return all.filter { it.description.contains(query, ignoreCase = true) }
+
+        val lowerQuery = query.lowercase()
+
+        return all.filter { case ->
+            case.description.lowercase().contains(lowerQuery) ||
+                    case.title.lowercase().contains(lowerQuery) ||
+                    case.address.lowercase().contains(lowerQuery)
+        }
     }
 
     fun doAddCase() {
